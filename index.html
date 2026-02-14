@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine's Day</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* กันสกอร์บาร์โผล่ตอนรูปลอย */
+            background: #ffe6e6; /* สีพื้นหลังชมพูอ่อน */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .center-text {
+            text-align: center;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        h1 { color: #ff4d4d; font-size: 3rem; }
+
+        /* สไตล์ของรูปที่ลอย */
+        .floating-img {
+            position: absolute;
+            width: 100px; /* ปรับขนาดรูปตรงนี้ */
+            height: 100px;
+            object-fit: cover;
+            border-radius: 50%; /* ทำเป็นรูปวงกลม */
+            border: 3px solid white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            pointer-events: none; /* เพื่อให้คลิกผ่านรูปไปโดนปุ่มข้างหลังได้ */
+            animation: float linear infinite;
+        }
+
+        /* อนิเมชั่นการลอย */
+        @keyframes float {
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="center-text">
+        <h1>สุขสันต์วันวาเลนไทน์นะ ❤️</h1>
+        <p>รักแฟนที่สุดในโลกเลย!</p>
+    </div>
+
+    <script>
+        // ใส่ URL รูปแฟนของคุณตรงนี้ (จะใส่กี่รูปก็ได้)
+        const photoUrls = [
+            'https://via.placeholder.com/150', 
+            'https://via.placeholder.com/151',
+            'https://via.placeholder.com/152'
+        ];
+
+        function createPhoto() {
+            const img = document.createElement('img');
+            img.src = photoUrls[Math.floor(Math.random() * photoUrls.length)];
+            img.className = 'floating-img';
+            
+            // สุ่มตำแหน่งแนวนอน
+            img.style.left = Math.random() * 100 + 'vw';
+            
+            // สุ่มระยะเวลาการลอย (5-15 วินาที)
+            const duration = Math.random() * 10 + 5;
+            img.style.animationDuration = duration + 's';
+            
+            // สุ่มขนาดรูปเล็กบ้างใหญ่บ้าง
+            const size = Math.random() * 50 + 70; 
+            img.style.width = size + 'px';
+            img.style.height = size + 'px';
+
+            document.body.appendChild(img);
+
+            // ลบรูปทิ้งเมื่อลอยจบเพื่อไม่ให้เครื่องค้าง
+            setTimeout(() => {
+                img.remove();
+            }, duration * 1000);
+        }
+
+        // สร้างรูปใหม่ทุกๆ 800 มิลลิวินาที
+        setInterval(createPhoto, 800);
+    </script>
+</body>
+</html>
